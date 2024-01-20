@@ -8,6 +8,8 @@ const App = () => {
   const [time, setTime] = useState(0);
   const [counter, setCounter] = useState('');
 
+  //const restTime = 3000;
+  //const workTime = 5000;
   const restTime = 120000;
   const workTime = 1200000;
 
@@ -15,20 +17,6 @@ const App = () => {
     const bell = new Audio('./sounds/bell.wav');
     bell.play();
   };
-
-  if(time === 0) {
-    if(status === 'work') {
-      setStatus('rest');
-      playBell();
-      setTime(restTime);
-      console.log("rest");
-    } 
-    else if(status === 'rest') {
-      setStatus('work');
-      setTime(workTime);
-      console.log("work");
-    }  
-  } 
 
   function milisecondsToTime(milliseconds) {
     let seconds = Math.floor(milliseconds / 1000);
@@ -58,9 +46,29 @@ const App = () => {
     setStatus('off');
   };
 
-
-
   const closeApp = () => window.close();
+
+  useEffect(() => {
+    if(time === 0) {
+      if(status === 'work') {
+        setStatus('rest');
+        playBell();
+        setTime(restTime);
+        console.log("rest");
+      } 
+      else if(status === 'rest') {
+        setStatus('work');
+        setTime(workTime);
+        console.log("work");
+      }  
+    }       
+    }, [time]);
+
+  useEffect(() => {
+    return () => {
+      if(counter) clearInterval(counter);
+      };
+    }, []);
 
   return (
     <div>
