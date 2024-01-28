@@ -1,20 +1,20 @@
 import React from "react";
 import { render } from "react-dom";
 import { useState } from "react";
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
 const App = () => {
   const [status, setStatus] = useState("off");
   const [time, setTime] = useState(0);
-  const [counter, setCounter] = useState('');
+  const [counter, setCounter] = useState("");
 
-  //const restTime = 3000;
-  //const workTime = 5000;
-  const restTime = 120000;
-  const workTime = 1200000;
+  const restTime = 60000;
+  const workTime = 180000;
+  //const restTime = 120000;
+  //const workTime = 1200000;
 
   const playBell = () => {
-    const bell = new Audio('./sounds/bell.wav');
+    const bell = new Audio("./sounds/bell.wav");
     bell.play();
   };
 
@@ -32,43 +32,44 @@ const App = () => {
   }
 
   const startTimer = () => {
-    setTime(workTime+1);
-    setStatus('work');
-    console.log("work");    
-    setCounter(setInterval(() => {
-      setTime(time => time - 1);
-    }));
-  }
+    setTime(workTime);
+    setStatus("work");
+    console.log("work");
+    setCounter(
+      setInterval(() => {
+        setTime((time) => time - 1000);
+      }, 1000)
+    );
+  };
 
-  const stopTime = () => { 
+  const stopTime = () => {
     setCounter(clearInterval(counter));
     setTime(0);
-    setStatus('off');
+    setStatus("off");
   };
 
   const closeApp = () => window.close();
 
   useEffect(() => {
-    if(time === 0) {
-      if(status === 'work') {
-        setStatus('rest');
+    if (time === 0) {
+      if (status === "work") {
+        setStatus("rest");
         playBell();
         setTime(restTime);
         console.log("rest");
-      } 
-      else if(status === 'rest') {
-        setStatus('work');
+      } else if (status === "rest") {
+        setStatus("work");
         setTime(workTime);
         console.log("work");
-      }  
-    }       
-    }, [time]);
+      }
+    }
+  }, [time]);
 
   useEffect(() => {
     return () => {
-      if(counter) clearInterval(counter);
-      };
-    }, []);
+      if (counter) clearInterval(counter);
+    };
+  }, []);
 
   return (
     <div>
@@ -91,9 +92,19 @@ const App = () => {
       {status !== "off" && (
         <div className="timer">{milisecondsToTime(time)}</div>
       )}
-      {status === "off" && <button className="btn" onClick={startTimer}>Start</button>}
-      {status !== "off" && <button className="btn" onClick={stopTime}>Stop</button>}
-      <button className="btn btn-close" onClick={closeApp}>X</button>
+      {status === "off" && (
+        <button className="btn" onClick={startTimer}>
+          Start
+        </button>
+      )}
+      {status !== "off" && (
+        <button className="btn" onClick={stopTime}>
+          Stop
+        </button>
+      )}
+      <button className="btn btn-close" onClick={closeApp}>
+        X
+      </button>
     </div>
   );
 };
