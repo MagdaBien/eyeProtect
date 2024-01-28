@@ -8,10 +8,10 @@ const App = () => {
   const [time, setTime] = useState(0);
   const [counter, setCounter] = useState("");
 
-  const restTime = 60000;
-  const workTime = 180000;
-  //const restTime = 120000;
-  //const workTime = 1200000;
+  //const restTime = 60000;
+  //const workTime = 180000;
+  const restTime = 120000;
+  const workTime = 1200000;
 
   const playBell = () => {
     const bell = new Audio("./sounds/bell.wav");
