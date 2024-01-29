@@ -8,18 +8,15 @@ const App = () => {
   const [time, setTime] = useState(0);
   const [counter, setCounter] = useState("");
 
-  //const restTime = 60000;
-  //const workTime = 180000;
-  const restTime = 120000;
-  const workTime = 1200000;
+  const restTime = 20;
+  const workTime = 120;
 
   const playBell = () => {
     const bell = new Audio("./sounds/bell.wav");
     bell.play();
   };
 
-  function milisecondsToTime(milliseconds) {
-    let seconds = Math.floor(milliseconds / 1000);
+  function secondsToTime(seconds) {
     let minutes = Math.floor(seconds / 60);
     seconds = seconds % 60;
     minutes = minutes % 60;
@@ -37,7 +34,7 @@ const App = () => {
     console.log("work");
     setCounter(
       setInterval(() => {
-        setTime((time) => time - 1000);
+        setTime((time) => time - 1);
       }, 1000)
     );
   };
@@ -89,9 +86,7 @@ const App = () => {
       )}
       {status === "work" && <img src="./images/work.png" />}
       {status === "rest" && <img src="./images/rest.png" />}
-      {status !== "off" && (
-        <div className="timer">{milisecondsToTime(time)}</div>
-      )}
+      {status !== "off" && <div className="timer">{secondsToTime(time)}</div>}
       {status === "off" && (
         <button className="btn" onClick={startTimer}>
           Start
