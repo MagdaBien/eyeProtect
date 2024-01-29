@@ -9,7 +9,7 @@ const App = () => {
   const [counter, setCounter] = useState("");
 
   const restTime = 20;
-  const workTime = 120;
+  const workTime = 1200;
 
   const playBell = () => {
     const bell = new Audio("./sounds/bell.wav");
