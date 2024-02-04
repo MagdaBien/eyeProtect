@@ -16,10 +16,9 @@ const App = () => {
     bell.play();
   };
 
-  function secondsToTime(seconds) {
-    let minutes = Math.floor(seconds / 60);
-    seconds = seconds % 60;
-    minutes = minutes % 60;
+  function secondsToTime(time) {
+    const minutes = Math.floor(time / 60);
+    const seconds = time % 60;
 
     return `${padTo2Digits(minutes)}:${padTo2Digits(seconds)}`;
   }
